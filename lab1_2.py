@@ -6,7 +6,6 @@ from random import randint
 
 import sys
 import interface6
-import math
 import numpy as np
 
 
@@ -22,62 +21,70 @@ class MatplotlibWidget(QWidget):
 
 class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
     def __init__(self, parent=None):
+        # Настройка интерфейса
         super(MainWindow, self).__init__(parent=parent)
+
         self.setupUi(self)
         self.init_widget()
         self.pushButton.clicked.connect(self.plot_widget)
-        self.lineEdit.setText("0.5")
-        self.lineEdit_2.setText("0.5")
-        self.lineEdit_3.setText("0.5")
-        self.lineEdit_4.setText("12")
-        self.lineEdit_5.setText("14")
-        self.lineEdit_6.setText("16")
-        self.lineEdit_7.setText("100")
-        self.lineEdit_8.setText("1000")
-        self.lineEdit_9.setText("0.9")
+
+        self.probabylity_X.setText("0.5")
+        self.probabylity_Y.setText("0.5")
+        self.probabylity_Z.setText("0.5")
+
+        self.coord_X.setText("12")
+        self.coord_Y.setText("14")
+        self.coord_Z.setText("16")
+
+        self.num_of_exp.setText("100")
+        self.num_of_exp_series.setText("1000")
+        self.confidence_interval.setText("0.9")
 
     def init_widget(self):
+        # Создание виджетов для графика matplotlib
         self.matplotlibWidget = MatplotlibWidget()
         self.layoutvertical = QVBoxLayout(self.GraphWidget)
         self.layoutvertical.addWidget(self.matplotlibWidget)
+
         self.matplotlibWidget2 = MatplotlibWidget()
-        self.layoutvertical = QVBoxLayout(self.Graph2)
+        self.layoutvertical = QVBoxLayout(self.GraphWidget2)
         self.layoutvertical.addWidget(self.matplotlibWidget2)
 
     def plot_widget(self):
         # Вероятность смены направления
-        self.Px = float(self.lineEdit.text())
-        self.Py = float(self.lineEdit_2.text())
-        self.Pz = float(self.lineEdit_3.text())
+        self.Px = float(self.probabylity_X.text())
+        self.Py = float(self.probabylity_Y.text())
+        self.Pz = float(self.probabylity_Z.text())
 
         # Радиусы большого и маленького стержня
         self.R = 30
         self.r = 10
 
-        ALPHA = float(self.lineEdit_9.text())
-        M = int(self.lineEdit_8.text())
-        N = int(self.lineEdit_7.text())
+        ALPHA = float(self.confidence_interval.text())
+        num_of_exp_series = int(self.num_of_exp_series.text())
+        num_of_exp = int(self.num_of_exp.text())
 
         self.matplotlibWidget.axis.clear()
         self.matplotlibWidget.axis.set_xscale("log")
         self.matplotlibWidget2.axis.set_xscale("log")
 
-        exp1 = self.ser_exp(M, N)
-        for i in range(M):
-            self.matplotlibWidget.axis.plot(range(1, N + 1), exp1[i], color='black')
+        experiment1 = self.ser_exp(num_of_exp_series, num_of_exp)
+        for i in range(num_of_exp_series):
+            self.matplotlibWidget.axis.plot(range(1, num_of_exp + 1), experiment1[i], color='black')
 
-        confidence_interval = self.conf_interval(exp1, ALPHA)
-        self.matplotlibWidget.axis.plot(range(1, N + 1), np.mean(exp1, axis=0), color="red")
-        self.matplotlibWidget.axis.plot(range(1, N + 1), confidence_interval[0,], color="blue")
-        self.matplotlibWidget.axis.plot(range(1, N + 1), confidence_interval[1,], color="blue")
+        confidence_interval = self.conf_interval(experiment1, ALPHA)
+        self.matplotlibWidget.axis.plot(range(1, num_of_exp + 1), np.mean(experiment1, axis=0), color="red")
+        self.matplotlibWidget.axis.plot(range(1, num_of_exp + 1), confidence_interval[0,], color="blue")
+        self.matplotlibWidget.axis.plot(range(1, num_of_exp + 1), confidence_interval[1,], color="blue")
 
-        exp_error = (confidence_interval[1,] - confidence_interval[0,]) / 2
+        #Вероятность ошибки
+        exp_error_probabylity = (confidence_interval[1,] - confidence_interval[0,]) / 2
 
         coef = self.normal_quantile((1 + ALPHA) / 2)
-        self.matplotlibWidget2.axis.plot(range(1, N + 1), exp_error, "r--")
+        self.matplotlibWidget2.axis.plot(range(1, num_of_exp + 1), exp_error_probabylity, "r--")
 
         self.label_10.setText(
-            self.label_10.text() + f'{np.mean(exp1, axis=0)[-1]} +- {(confidence_interval[1, -1] - confidence_interval[0, -1]) / 2}')
+            self.label_10.text() + f'{np.mean(experiment1, axis=0)[-1]} +- {(confidence_interval[1, -1] - confidence_interval[0, -1]) / 2}')
         self.matplotlibWidget.canvas.draw()
         self.matplotlibWidget2.canvas.draw()
 
@@ -89,21 +96,25 @@ class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
     def check_in(self):
         return self.X ** 2 + self.Y ** 2 <= self.r ** 2
 
-    # Изменение позции точки
+    # Изменение позиций точкек
     def rotate_position(self):
+        self.X = self.change_position_point(self.X, self.Px)
+        self.Y = self.change_position_point(self.Y, self.Py)
+        self.Z = self.change_position_point(self.Z, self.Pz)
 
-        self.X = self.X - 3 if randint(0, 10) <= self.Px * 10 else self.X + 3
-        self.Y = self.Y - 3 if randint(0, 10) <= self.Py * 10 else self.Y + 3
-        self.Z = self.Z - 3 if randint(0, 10) <= self.Pz * 10 else self.Z + 3
+    # Функция для изменения позиции
+    def change_position_point(self, point, probabylity_change):
+        return point - 3 if randint(0, 10) <= probabylity_change * 10 else point + 3
 
-    def exp_2(self, num):
+
+    def one_ser_exp(self, num):
         values = np.zeros(num)
         counter = 0
         for i in range(num):
             # Координаты точки
-            self.X = int(self.lineEdit_4.text())
-            self.Y = int(self.lineEdit_5.text())
-            self.Z = int(self.lineEdit_6.text())
+            self.X = int(self.coord_X.text())
+            self.Y = int(self.coord_Y.text())
+            self.Z = int(self.coord_Z.text())
 
             N = 0
             while N < 1000:
@@ -117,18 +128,19 @@ class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
             values[i] = (counter / (i + 1))
         return values
 
-    def ser_exp(self, M, N):
-        values = np.zeros((M, N))
-        for i in range(M):
-            values[i,] = self.exp_2(N)
+    def ser_exp(self, num_of_ser_exp, num_of_exp):
+        values = np.zeros((num_of_ser_exp, num_of_exp))
+
+        for i in range(num_of_ser_exp):
+            values[i,] = self.one_ser_exp(num_of_exp)
         return values
 
-    def conf_interval(self, vs, alpha):
-        m = vs.shape[0]
+    def conf_interval(self, series_of_exp, alpha):
+        m = series_of_exp.shape[0]
         a = (1 - alpha) / 2
         m_down = int(m * a)
         m_up = m - m_down - 1
-        sorted_vs = np.sort(vs, axis=0)
+        sorted_vs = np.sort(series_of_exp, axis=0)
         return np.apply_along_axis(lambda x: np.array([x[m_down], x[m_up]]), 0, sorted_vs)
 
     def normal_quantile(self, p):
