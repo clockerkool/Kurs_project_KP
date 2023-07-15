@@ -28,6 +28,11 @@ class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
         self.init_widget()
         self.pushButton.clicked.connect(self.plot_widget)
 
+        # Задание изначальных параметров
+        self.change_defolt_parametrs()
+
+    def change_defolt_parametrs(self):
+        """Функция для изменения изначальных параметров для расчёта вероятности"""
         self.probabylity_X.setText("0.5")
         self.probabylity_Y.setText("0.5")
         self.probabylity_Z.setText("0.5")
@@ -41,7 +46,7 @@ class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
         self.confidence_interval.setText("0.9")
 
     def init_widget(self):
-        # Создание виджетов для графика matplotlib
+        """Функция для создание виджетов для графиков matplotlib"""
         self.matplotlibWidget = MatplotlibWidget()
         self.layoutvertical = QVBoxLayout(self.GraphWidget)
         self.layoutvertical.addWidget(self.matplotlibWidget)
@@ -88,49 +93,52 @@ class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
         self.matplotlibWidget.canvas.draw()
         self.matplotlibWidget2.canvas.draw()
 
-    # Проверка, вылетел ли шар из внешнего стержня
+
     def check_out(self):
+        """Функция для проверки вылета шара из внешнего стержня"""
         return self.X ** 2 + self.Y ** 2 > self.R ** 2
 
-    # Проверка попал ли шар во внутренний стержень
+
     def check_in(self):
+        """Функция для проверки попадания  шара во внутренний стержень"""
         return self.X ** 2 + self.Y ** 2 <= self.r ** 2
 
-    # Изменение позиций точкек
+
     def rotate_position(self):
+        """Функция для изменения позиций точкек"""
         self.X = self.change_position_point(self.X, self.Px)
         self.Y = self.change_position_point(self.Y, self.Py)
         self.Z = self.change_position_point(self.Z, self.Pz)
 
-    # Функция для изменения позиции
+
     def change_position_point(self, point, probabylity_change):
+        """Функция для изменения позиции(нужна для функции rotate_position)"""
         return point - 3 if randint(0, 10) <= probabylity_change * 10 else point + 3
 
 
     def one_ser_exp(self, num):
         values = np.zeros(num)
-        counter = 0
+        positive_counter = 0
         for i in range(num):
             # Координаты точки
             self.X = int(self.coord_X.text())
             self.Y = int(self.coord_Y.text())
             self.Z = int(self.coord_Z.text())
 
-            N = 0
-            while N < 1000:
+            counter_rotate_pos = 0
+            while counter_rotate_pos < 1000:
                 self.rotate_position()
-                N += 1
+                counter_rotate_pos += 1
                 if self.check_out():
                     break
                 if self.check_in():
-                    counter += 1
+                    positive_counter += 1
                     break
-            values[i] = (counter / (i + 1))
+            values[i] = (positive_counter / (i + 1))
         return values
 
     def ser_exp(self, num_of_ser_exp, num_of_exp):
         values = np.zeros((num_of_ser_exp, num_of_exp))
-
         for i in range(num_of_ser_exp):
             values[i,] = self.one_ser_exp(num_of_exp)
         return values
@@ -148,7 +156,6 @@ class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
 
 
 if __name__ == "__main__":
-    # M, N = map(int, input().split())
     app = QApplication(sys.argv)
     w = MainWindow()
     w.show()
