@@ -15,10 +15,12 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1302, 849)
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(50, 210, 55, 16))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -28,6 +30,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(50, 240, 71, 21))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -37,6 +40,7 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(50, 270, 55, 16))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -46,6 +50,7 @@ class Ui_MainWindow(object):
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(250, 210, 55, 16))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -55,6 +60,7 @@ class Ui_MainWindow(object):
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(250, 240, 55, 16))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -64,6 +70,7 @@ class Ui_MainWindow(object):
         self.label_5.setObjectName("label_5")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(250, 270, 55, 16))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -73,6 +80,7 @@ class Ui_MainWindow(object):
         self.label_6.setObjectName("label_6")
         self.probabylity_X = QtWidgets.QLineEdit(self.centralwidget)
         self.probabylity_X.setGeometry(QtCore.QRect(120, 210, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -80,6 +88,7 @@ class Ui_MainWindow(object):
         self.probabylity_X.setObjectName("probabylity_X")
         self.probabylity_Y = QtWidgets.QLineEdit(self.centralwidget)
         self.probabylity_Y.setGeometry(QtCore.QRect(120, 240, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -87,6 +96,7 @@ class Ui_MainWindow(object):
         self.probabylity_Y.setObjectName("probabylity_Y")
         self.probabylity_Z = QtWidgets.QLineEdit(self.centralwidget)
         self.probabylity_Z.setGeometry(QtCore.QRect(120, 270, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -94,6 +104,7 @@ class Ui_MainWindow(object):
         self.probabylity_Z.setObjectName("probabylity_Z")
         self.coord_X = QtWidgets.QLineEdit(self.centralwidget)
         self.coord_X.setGeometry(QtCore.QRect(320, 210, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -101,6 +112,7 @@ class Ui_MainWindow(object):
         self.coord_X.setObjectName("coord_X")
         self.coord_Y = QtWidgets.QLineEdit(self.centralwidget)
         self.coord_Y.setGeometry(QtCore.QRect(320, 240, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -108,16 +120,20 @@ class Ui_MainWindow(object):
         self.coord_Y.setObjectName("coord_Y")
         self.coord_Z = QtWidgets.QLineEdit(self.centralwidget)
         self.coord_Z.setGeometry(QtCore.QRect(320, 270, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
         self.coord_Z.setFont(font)
         self.coord_Z.setObjectName("coord_Z")
+
         self.GraphWidget = QtWidgets.QWidget(self.centralwidget)
         self.GraphWidget.setGeometry(QtCore.QRect(510, 10, 761, 361))
         self.GraphWidget.setObjectName("GraphWidget")
+
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(140, 440, 221, 81))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(16)
@@ -125,8 +141,10 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
+
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(50, 320, 231, 16))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -136,6 +154,7 @@ class Ui_MainWindow(object):
         self.label_7.setObjectName("label_7")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(40, 350, 281, 31))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -145,6 +164,7 @@ class Ui_MainWindow(object):
         self.label_8.setObjectName("label_8")
         self.label_9 = QtWidgets.QLabel(self.centralwidget)
         self.label_9.setGeometry(QtCore.QRect(50, 390, 261, 31))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -154,6 +174,7 @@ class Ui_MainWindow(object):
         self.label_9.setObjectName("label_9")
         self.num_of_exp = QtWidgets.QLineEdit(self.centralwidget)
         self.num_of_exp.setGeometry(QtCore.QRect(320, 310, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -161,6 +182,7 @@ class Ui_MainWindow(object):
         self.num_of_exp.setObjectName("num_of_exp")
         self.num_of_exp_series = QtWidgets.QLineEdit(self.centralwidget)
         self.num_of_exp_series.setGeometry(QtCore.QRect(320, 350, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -168,16 +190,20 @@ class Ui_MainWindow(object):
         self.num_of_exp_series.setObjectName("num_of_exp_series")
         self.confidence_interval = QtWidgets.QLineEdit(self.centralwidget)
         self.confidence_interval.setGeometry(QtCore.QRect(320, 390, 113, 22))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
         self.confidence_interval.setFont(font)
         self.confidence_interval.setObjectName("confidence_interval")
+
         self.GraphWidget2 = QtWidgets.QWidget(self.centralwidget)
         self.GraphWidget2.setGeometry(QtCore.QRect(510, 380, 761, 321))
         self.GraphWidget2.setObjectName("GraphWidget2")
+
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
         self.label_10.setGeometry(QtCore.QRect(50, 740, 1211, 20))
+
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -185,11 +211,13 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.label_10.setFont(font)
         self.label_10.setObjectName("label_10")
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1302, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
+
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -206,7 +234,9 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "X:"))
         self.label_5.setText(_translate("MainWindow", "Y:"))
         self.label_6.setText(_translate("MainWindow", "Z:"))
+
         self.pushButton.setText(_translate("MainWindow", "Запуск"))
+
         self.label_7.setText(_translate("MainWindow", "Количество испытаний:"))
         self.label_8.setText(_translate("MainWindow", "Кол-во серий экспериментов:"))
         self.label_9.setText(_translate("MainWindow", "Доверительный интервал:"))

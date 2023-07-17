@@ -70,6 +70,7 @@ class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
         num_of_exp = int(self.num_of_exp.text())
 
         self.matplotlibWidget.axis.clear()
+        self.matplotlibWidget2.axis.clear()
         self.matplotlibWidget.axis.set_xscale("log")
         self.matplotlibWidget2.axis.set_xscale("log")
 
@@ -89,7 +90,7 @@ class MainWindow(QtWidgets.QMainWindow, interface6.Ui_MainWindow):
         self.matplotlibWidget2.axis.plot(range(1, num_of_exp + 1), exp_error_probabylity, "r--")
 
         self.label_10.setText(
-            self.label_10.text() + f'{np.mean(experiment1, axis=0)[-1]} +- {(confidence_interval[1, -1] - confidence_interval[0, -1]) / 2}')
+            "Оценка вероятности и ошибки вычисления:   " + f'{np.mean(experiment1, axis=0)[-1]} +- {(confidence_interval[1, -1] - confidence_interval[0, -1]) / 2}')
         self.matplotlibWidget.canvas.draw()
         self.matplotlibWidget2.canvas.draw()
 
